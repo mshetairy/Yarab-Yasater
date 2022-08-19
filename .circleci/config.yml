@@ -80,7 +80,7 @@ jobs:
           name: Test front-end
           command: |
             cd frontend
-            npm install
+            npm installsidhoihdoihedihdeoiheoiwhd
             npm run test
                  
   test-backend:
