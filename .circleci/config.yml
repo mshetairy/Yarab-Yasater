@@ -170,30 +170,29 @@ jobs:
           name: Add back-end ip to ansible inventory
           command: |
             aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" --output text >> .circleci/ansible/inventory.txt
-      - persist_to_workspace:
+      - persist_to_workspace: # to persist the public ip in inventory.txt file
           root: ~/
           paths:
             - project/.circleci/ansible/inventory.txt
       - destroy-environment
 
-#   configure-infrastructure:
-#     docker:
-#       # Docker image here that supports Ansible
-#     steps:
-#       # Checkout code from git
-#       # Add ssh keys with fingerprint
-#       # attach workspace
-#       - run:
-#           name: Install dependencies
-#           command: |
-#             # Your code here
-#             exit 1
-#       - run:
-#           name: Configure server
-#           command: |
-#             # Your code here
-#             exit 1
-#       # Here's where you will add some code to rollback on failure      
+  configure-infrastructure:
+    docker:
+     - image: cimg/base:stable
+    steps:
+      - checkout
+      - install_ansible
+      - add_ssh_keys:
+          fingerprints: ["fc:68:f1:9b:2c:3a:c0:62:2a:09:71:13:30:0e:ac:a0"]
+      - attach_workspace: # to attach the inventory.txt file containing public ip of instance
+          at: ~/
+      - run:
+          name: Configure server
+          command: |
+                  cd .circleci/ansible
+                  cat inventory.txt
+                  ansible-playbook -i inventory.txt configure-server.yml
+      - destroy-environment
 
 #   run-migrations:
 #     docker:
