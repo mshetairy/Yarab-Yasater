@@ -178,9 +178,10 @@ jobs:
 
   configure-infrastructure:
     docker:
-     - image: cimg/base:stable
+     - image: cimg//python:3.10
     steps:
       - checkout
+      - install_awscli
       - install_ansible
       - add_ssh_keys:
           fingerprints: ["fc:68:f1:9b:2c:3a:c0:62:2a:09:71:13:30:0e:ac:a0"]
