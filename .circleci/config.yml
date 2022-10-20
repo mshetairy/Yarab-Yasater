@@ -197,7 +197,7 @@ jobs:
       - install_awscli
       - install_ansible
       - add_ssh_keys:
-          fingerprints: ["fc:68:f1:9b:2c:3a:c0:62:2a:09:71:13:30:0e:ac:a0"]
+          fingerprints: ["1e:e9:87:33:89:97:0b:b6:88:b9:03:52:b4:c5:82:55"]
       - attach_workspace: # to attach the inventory.txt file containing public ip of instance
           at: ~/
       - run:
@@ -276,7 +276,7 @@ jobs:
       - install_nodejs
       - install_ansible
       - add_ssh_keys:
-         fingerprints: [ed:29:75:7e:d7:f5:9d:f8:7e:b1:de:0e:6e:6d:1a:8b]
+         fingerprints: ["1e:e9:87:33:89:97:0b:b6:88:b9:03:52:b4:c5:82:55"]
       - attach_workspace:
           at: ~/
       - restore_cache:
